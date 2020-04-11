@@ -1,0 +1,22 @@
+FROM jcxarm/docker:2.222.1-lts_jdk11.0.6-slim-buster
+
+USER root
+
+# Install Docker + Compose
+
+
+# 1. Install deps
+#RUN apt-get update && apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+
+# 2. Add GPG key
+#RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
+
+# 3. Add Repo and install
+#RUN add-apt-repository "deb [arch=arm64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && apt-get update && apt-get install -y docker-ce
+
+# Install Docker From DEB
+RUN curl -L "https://download.docker.com/linux/debian/dists/buster/pool/stable/arm64/docker-ce-cli_19.03.8~3-0~debian-buster_arm64.deb" -o /tmp/docker.deb && dpkg -i /tmp/docker.deb && rm /tmp/docker.deb
+
+
+# 4. Install Docker-Compose from GitHub
+RUN curl -L "https://github.com/docker/compose/releases/download/1.25.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
